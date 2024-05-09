@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+#container {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#printNumber {
+    display: flex;
+    width: 80px;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5%;
+}
+
+#allNumbers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    overflow-x: auto;
+    margin-bottom: 10px;
+}
+
+.image {
+    display: none;
+    max-width: 100px;
+    max-height: 100px;
+    margin: 0 5px;
+}
+
+#startButton, #restartButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    width: 180px;
+    height: 80px;
+    border: 5px solid black;
+    border-radius: 10px;
+    font-size: 1.7rem;
+    padding: 14px 21px;
+    background: red;
+    font-weight: bold;    
+}

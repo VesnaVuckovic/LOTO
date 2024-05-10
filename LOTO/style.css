@@ -2,7 +2,30 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
+}
+
+.number-image {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+#numberContainer {
+    display: flex;
+    width: 500px;
+    flex-wrap: wrap;
+    justify-content: center;    
+}
+
+.selected-number {
+    border: 3px solid red; 
+    margin: 10px; 
+    cursor: pointer;
+    width: 80px; 
+    height: 80px; 
+    object-fit: cover;
+}
 
 #container {
     display: flex;

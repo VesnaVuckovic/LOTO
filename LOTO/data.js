@@ -1,70 +1,85 @@
-let playersNumbers; 
+let playersNumbers = []; // Definicija playersNumbers
+
 document.addEventListener("DOMContentLoaded", function() {
     document.body.style.backgroundImage = "url(cover.jpg)";
     document.body.style.backgroundSize = "cover";
+    generateNumberImages();
     document.getElementById("startButton").style.display = "none";
     document.getElementById("startButton").addEventListener("click", function() {
         startPrint(playersNumbers); 
     });
     document.getElementById("restartButton").addEventListener("click", restartPrint);
-    document.getElementById("confirmButton").addEventListener("click", confirmNumbers);
 });
 
-function confirmNumbers() {
-    let numbersInput = document.getElementById("numbers").value;    
-    let numbers = numbersInput.split(",").map(number => parseInt(number.trim()));
-    
-    if (numbers.length !== 7) {
-        alert("You must enter exactly 7 numbers.");
-        return;
+function generateNumberImages() {
+    let numbersContainer = document.createElement("div");
+    numbersContainer.id = "numberContainer";
+    document.getElementById("container").appendChild(numbersContainer);
+
+    for (let i = 1; i <= 39; i++) {
+        let img = document.createElement("img");
+        img.src = "img/" + i + ".png";
+        img.classList.add("number-image");
+        img.dataset.number = i;
+        numbersContainer.appendChild(img);
+
+        img.addEventListener("click", function() {
+            toggleNumber(this.dataset.number);
+        });
     }
-
-    for (let number of numbers) {
-        if (isNaN(number) || number < 1 || number > 39) {
-            alert("All numbers entered must be in the range 1 to 39.");
-            return;
-        }
-    }
-
-    playersNumbers = numbers;
-
-    document.getElementById("selectionOfNumbers").innerHTML = "Selected numbers: " + numbers.join(", ");
-    document.getElementById("startButton").style.display = "block";
-        
 }
 
+function toggleNumber(number) {
+    let index = playersNumbers.indexOf(number);
+    if (index === -1) {
+        if (playersNumbers.length < 7) {
+            playersNumbers.push(number);
+            displaySelectedNumbers();
+        }
+    } else {
+        playersNumbers.splice(index, 1);
+        displaySelectedNumbers();
+    }
+}
+
+function displaySelectedNumbers() {
+    let selectedNumbersElement = document.getElementById("selectedNumbers");
+    selectedNumbersElement.innerHTML = "";
+    playersNumbers.forEach(number => {
+        let img = document.createElement("img");
+        img.src = "img/" + number + ".png";
+        img.classList.add("selected-number");
+        img.dataset.number = number;
+        selectedNumbersElement.appendChild(img);
+    });
+    if (playersNumbers.length === 7) {
+        document.getElementById("startButton").style.display = "block";
+        document.getElementById("numberContainer").style.display = "none";
+    } else {
+        document.getElementById("startButton").style.display = "none";
+        document.getElementById("numberContainer").style.display = "flex";
+    }
+}
 
 function startPrint(playersNumbers) {       
-    let numbers = [];
-    let guessedNumbers = [];
+    let guessedNumbers = 0;
 
     if (!Array.isArray(playersNumbers)) {
         playersNumbers = [];
     }
 
+    let numeration = 0;
+    let drawnNumbers = [];
 
-    if (numbers.length === 0) {
-        for (let i = 0; i < 7; i++) {
+    function print() {
+        if (numeration < 7) { // Završavamo izvlačenje nakon 7 brojeva
             let randomNumber;
             do {
                 randomNumber = Math.floor(Math.random() * 39) + 1;
-            } while (numbers.includes(randomNumber));
-            numbers.push(randomNumber);
-        }
-    }
+            } while (drawnNumbers.includes(randomNumber));
+            drawnNumbers.push(randomNumber);
 
-    let numeration = 0;
-        
-    for (let i = 1; i <= 39; i++) {
-        numbers.push(i);
-    }
-
-    function print() {
-        if (numeration < numbers.length) {
-            let randomNumeration = Math.floor(Math.random() * numbers.length);
-            let pulledOut = numbers.splice(randomNumeration, 1)[0];
-
-            let imgUrl = "img/" + pulledOut + ".png";
+            let imgUrl = "img/" + randomNumber + ".png";
 
             let image = new Image();
             image.src = imgUrl;
@@ -73,8 +88,8 @@ function startPrint(playersNumbers) {
             document.getElementById("printNumber").innerHTML = "";
             document.getElementById("printNumber").appendChild(image);
 
-            if (playersNumbers.includes(pulledOut)) {
-                guessedNumbers.push(pulledOut);
+            if (playersNumbers.includes(randomNumber)) {
+                guessedNumbers++;
             }
 
             image.onload = function () {
@@ -84,13 +99,11 @@ function startPrint(playersNumbers) {
                 if (++numeration == 7) {
                     showRestartButton();
                     setTimeout(function() {
-                        alert("You guessed it " + guessedNumbers.length + " selected numbers.");
+                        alert("You guessed " + guessedNumbers + " selected numbers.");
                     }, 100);
-                   } 
-                else {
+                } else {
                     setTimeout(print, 1000);
                 }
-                                                
             };
         }
     }
@@ -100,7 +113,8 @@ function startPrint(playersNumbers) {
     }
 
     numeration = 0;
-    guessedNumbers = [];
+    drawnNumbers = [];
+    guessedNumbers = 0;
     document.getElementById("startButton").style.display = "none";
     document.getElementById("restartButton").style.display = "none";
     document.getElementById("allNumbers").innerHTML = "";
@@ -113,4 +127,6 @@ function restartPrint() {
     document.getElementById("allNumbers").innerHTML = "";
     numeration = 0;
     document.getElementById("printNumber").innerHTML = "";
+    drawnNumbers = []; 
 }
+

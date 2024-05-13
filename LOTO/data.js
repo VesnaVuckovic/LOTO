@@ -1,4 +1,5 @@
-let playersNumbers = []; // Definicija playersNumbers
+let playersNumbers = [];
+let drawnNumbers = [];
 
 document.addEventListener("DOMContentLoaded", function() {
     document.body.style.backgroundImage = "url(cover.jpg)";
@@ -15,6 +16,11 @@ function generateNumberImages() {
     let numbersContainer = document.createElement("div");
     numbersContainer.id = "numberContainer";
     document.getElementById("container").appendChild(numbersContainer);
+
+    let message = document.createElement("div");
+    message.textContent = "Izaberite 7 brojeva";
+    message.classList.add("choose-message");
+    numbersContainer.appendChild(message);
 
     for (let i = 1; i <= 39; i++) {
         let img = document.createElement("img");
@@ -40,11 +46,13 @@ function toggleNumber(number) {
         playersNumbers.splice(index, 1);
         displaySelectedNumbers();
     }
+    console.log("playersNumbers after toggle:", playersNumbers);
 }
 
 function displaySelectedNumbers() {
     let selectedNumbersElement = document.getElementById("selectedNumbers");
     selectedNumbersElement.innerHTML = "";
+    playersNumbers.sort((a, b) => a - b);
     playersNumbers.forEach(number => {
         let img = document.createElement("img");
         img.src = "img/" + number + ".png";
@@ -68,27 +76,29 @@ function startPrint(playersNumbers) {
         playersNumbers = [];
     }
 
-    let numeration = 0;
-    let drawnNumbers = [];
+    let numeration = 0;    
 
     function print() {
-        if (numeration < 7) { // Završavamo izvlačenje nakon 7 brojeva
+        if (numeration < 7) { 
             let randomNumber;
             do {
                 randomNumber = Math.floor(Math.random() * 39) + 1;
             } while (drawnNumbers.includes(randomNumber));
             drawnNumbers.push(randomNumber);
+            
 
             let imgUrl = "img/" + randomNumber + ".png";
 
             let image = new Image();
             image.src = imgUrl;
             image.classList.add("image");
+            
 
             document.getElementById("printNumber").innerHTML = "";
             document.getElementById("printNumber").appendChild(image);
+            
 
-            if (playersNumbers.includes(randomNumber)) {
+            if (playersNumbers.includes(randomNumber.toString())) { 
                 guessedNumbers++;
             }
 
@@ -96,9 +106,10 @@ function startPrint(playersNumbers) {
                 image.style.display = "block";
                 document.getElementById("allNumbers").appendChild(image.cloneNode(true));
 
-                if (++numeration == 7) {
+                if (++numeration == 7) {                                    
                     showRestartButton();
                     setTimeout(function() {
+                        drawnNumbers.sort((a, b) => a - b);
                         alert("You guessed " + guessedNumbers + " selected numbers.");
                     }, 100);
                 } else {
@@ -118,15 +129,23 @@ function startPrint(playersNumbers) {
     document.getElementById("startButton").style.display = "none";
     document.getElementById("restartButton").style.display = "none";
     document.getElementById("allNumbers").innerHTML = "";
-    print();
+    print();    
+    console.log("drawnNumbers:", drawnNumbers);
+    console.log("playersNumbers:", playersNumbers);
 }
 
 function restartPrint() {
-    document.getElementById("startButton").style.display = "block";
-    document.getElementById("restartButton").style.display = "none";
-    document.getElementById("allNumbers").innerHTML = "";
-    numeration = 0;
+    drawnNumbers = [];
+    guessedNumbers = 0;
+    document.getElementById("numberContainer").style.display = "flex";
+    document.getElementById("startButton").style.display = "none";
     document.getElementById("printNumber").innerHTML = "";
-    drawnNumbers = []; 
+    document.getElementById("restartButton").style.display = "none";
+    playersNumbers = [];
+    document.getElementById("selectedNumbers").innerHTML = "";
+    let allNumbersElement = document.getElementById("allNumbers");
+    allNumbersElement.innerHTML = "";
+    let numberContainer = document.getElementById("numberContainer");
+    numberContainer.style.display = "flex";
 }
 

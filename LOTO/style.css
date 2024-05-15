@@ -21,17 +21,15 @@
 .choose-message {
     width: 100%;
     height: 80px;
-    font-size: 1.7rem;
-    font-weight: bold;
+    font-size: 1.7rem;    
     margin-bottom: 10px;    
-    color:black;
+    color:white;
     display: flex;
     justify-content: center;
-    align-items: center;
-    border: 5px solid black;
+    align-items: center;    
     border-radius: 10px;
     padding: 14px 21px;
-    background: red;     
+    background: rgb(250, 164, 106);     
 }
 
 
@@ -81,14 +79,14 @@
 #startButton, #restartButton {
     display: flex;
     justify-content: center;
-    align-items: center;
-    
+    align-items: center;    
     width: 180px;
-    height: 80px;
-    border: 5px solid black;
+    height: 80px; 
+    border: none;   
     border-radius: 10px;
+    color: white;
     font-size: 1.7rem;
     padding: 14px 21px;
-    background: red;
+    background: rgb(250, 164, 106); 
     font-weight: bold;    
 }

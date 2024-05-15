@@ -18,7 +18,7 @@ function generateNumberImages() {
     document.getElementById("container").appendChild(numbersContainer);
 
     let message = document.createElement("div");
-    message.textContent = "Izaberite 7 brojeva";
+    message.textContent = "Choose 7 numbers";
     message.classList.add("choose-message");
     numbersContainer.appendChild(message);
 
@@ -86,7 +86,6 @@ function startPrint(playersNumbers) {
             } while (drawnNumbers.includes(randomNumber));
             drawnNumbers.push(randomNumber);
             
-
             let imgUrl = "img/" + randomNumber + ".png";
 
             let image = new Image();
@@ -105,16 +104,21 @@ function startPrint(playersNumbers) {
             image.onload = function () {
                 image.style.display = "block";
                 document.getElementById("allNumbers").appendChild(image.cloneNode(true));
+                
+                setTimeout(function() {
+                    document.getElementById("printNumber").innerHTML = "";
 
-                if (++numeration == 7) {                                    
-                    showRestartButton();
-                    setTimeout(function() {
-                        drawnNumbers.sort((a, b) => a - b);
+                if (++numeration == 7) {   
+                    drawnNumbers.sort((a, b) => a - b);
+                    setTimeout(function() {                        
                         alert("You guessed " + guessedNumbers + " selected numbers.");
                     }, 100);
+                                                       
+                    showRestartButton();
                 } else {
                     setTimeout(print, 1000);
                 }
+            }, 700);
             };
         }
     }

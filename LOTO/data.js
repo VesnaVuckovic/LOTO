@@ -26,7 +26,7 @@ function generateNumberImages() {
         let img = document.createElement("img");
         img.src = "img/" + i + ".png";
         img.classList.add("number-image");
-        img.dataset.number = i;
+        img.dataset.number = i; 
         numbersContainer.appendChild(img);
 
         img.addEventListener("click", function() {
@@ -45,8 +45,7 @@ function toggleNumber(number) {
     } else {
         playersNumbers.splice(index, 1);
         displaySelectedNumbers();
-    }
-    console.log("playersNumbers after toggle:", playersNumbers);
+    }    
 }
 
 function displaySelectedNumbers() {
@@ -71,12 +70,11 @@ function displaySelectedNumbers() {
 
 function startPrint(playersNumbers) {       
     let guessedNumbers = 0;
+    let numeration = 0;  
 
     if (!Array.isArray(playersNumbers)) {
         playersNumbers = [];
-    }
-
-    let numeration = 0;    
+    }       
 
     function print() {
         if (numeration < 7) { 
@@ -85,43 +83,47 @@ function startPrint(playersNumbers) {
                 randomNumber = Math.floor(Math.random() * 39) + 1;
             } while (drawnNumbers.includes(randomNumber));
             drawnNumbers.push(randomNumber);
-            
+
             let imgUrl = "img/" + randomNumber + ".png";
 
             let image = new Image();
             image.src = imgUrl;
             image.classList.add("image");
-            
 
+            
             document.getElementById("printNumber").innerHTML = "";
             document.getElementById("printNumber").appendChild(image);
-            
-
-            if (playersNumbers.includes(randomNumber.toString())) { 
-                guessedNumbers++;
-            }
 
             image.onload = function () {
                 image.style.display = "block";
                 document.getElementById("allNumbers").appendChild(image.cloneNode(true));
-                
+
+                if (playersNumbers.includes(randomNumber.toString())) { 
+                    guessedNumbers++;
+                }
+
                 setTimeout(function() {
                     document.getElementById("printNumber").innerHTML = "";
 
-                if (++numeration == 7) {   
-                    drawnNumbers.sort((a, b) => a - b);
-                    setTimeout(function() {                        
-                        alert("You guessed " + guessedNumbers + " selected numbers.");
-                    }, 100);
-                                                       
-                    showRestartButton();
-                } else {
-                    setTimeout(print, 1000);
-                }
-            }, 700);
+                    
+                    if (++numeration == 7) {  
+                        endGameMessage(guessedNumbers);
+                        showRestartButton(); 
+                    } else {                                       
+                        setTimeout(print, 1000);
+                    }
+                }, 1000); 
             };
         }
     }
+
+    function endGameMessage(guessedNumbers) {
+        let message = document.createElement("div");
+        message.textContent = "You guessed " + guessedNumbers + " selected numbers.";
+        message.classList.add("endGame-message");
+        document.body.appendChild(message);
+    }
+    
 
     function showRestartButton() {
         document.getElementById("restartButton").style.display = "block";
@@ -134,8 +136,6 @@ function startPrint(playersNumbers) {
     document.getElementById("restartButton").style.display = "none";
     document.getElementById("allNumbers").innerHTML = "";
     print();    
-    console.log("drawnNumbers:", drawnNumbers);
-    console.log("playersNumbers:", playersNumbers);
 }
 
 function restartPrint() {
@@ -152,4 +152,3 @@ function restartPrint() {
     let numberContainer = document.getElementById("numberContainer");
     numberContainer.style.display = "flex";
 }
-

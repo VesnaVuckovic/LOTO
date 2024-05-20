@@ -4,6 +4,8 @@ let drawnNumbers = [];
 document.addEventListener("DOMContentLoaded", function() {
     document.body.style.backgroundImage = "url(cover.jpg)";
     document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundAttachment = "fixed";
     generateNumberImages();
     document.getElementById("startButton").style.display = "none";
     document.getElementById("startButton").addEventListener("click", function() {
@@ -106,7 +108,7 @@ function startPrint(playersNumbers) {
                     document.getElementById("printNumber").innerHTML = "";
 
                     
-                    if (++numeration == 7) {  
+                    if (++numeration == 7) {                        
                         endGameMessage(guessedNumbers);
                         showRestartButton(); 
                     } else {                                       
@@ -117,15 +119,15 @@ function startPrint(playersNumbers) {
         }
     }
 
-    function endGameMessage(guessedNumbers) {
+    function endGameMessage(guessedNumbers) {        
         let message = document.createElement("div");
         message.textContent = "You guessed " + guessedNumbers + " selected numbers.";
-        message.classList.add("endGame-message");
+        message.classList.add("endGame-message");               
         document.body.appendChild(message);
-    }
-    
+      
+    }   
 
-    function showRestartButton() {
+    function showRestartButton() {        
         document.getElementById("restartButton").style.display = "block";
     }
 
@@ -151,4 +153,8 @@ function restartPrint() {
     allNumbersElement.innerHTML = "";
     let numberContainer = document.getElementById("numberContainer");
     numberContainer.style.display = "flex";
+    let endGameMessageElement = document.querySelector(".endGame-message");
+    if (endGameMessageElement) {
+        document.body.removeChild(endGameMessageElement);
+    }
 }

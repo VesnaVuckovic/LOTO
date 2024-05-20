@@ -18,8 +18,7 @@
     justify-content: center;    
 }
 
-.choose-message,
-.endGame-message {
+.choose-message {
     width: 100%;
     height: 80px;
     font-size: 1.7rem;    
@@ -30,8 +29,28 @@
     align-items: center;    
     border-radius: 10px;
     padding: 14px 21px;
-    background: rgb(250, 164, 106);     
+    background: rgb(250, 164, 106);    
 }
+
+.endGame-message {
+    width: 80%;
+    max-width: 600px;
+    height: auto;
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    padding: 14px 21px;
+    background: rgb(250, 164, 106);
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);    
+}
+
 
 .selected-number {
     border: 5px solid red;
@@ -90,3 +109,74 @@
     background: rgb(250, 164, 106); 
     font-weight: bold;    
 }
+
+@media only screen and (max-width: 480px) {
+    #numberContainer {        
+        max-width: 80%;        
+    } 
+    .choose-message, .endGame-message {
+        max-height: 35px;
+        padding: 6px 12px;
+        font-size: 0.9rem;        
+    }
+    .selected-number {
+        max-width: 35px;
+        max-height: 35px;
+        margin: 3px;
+        border: 3px solid red;
+    }
+    .number-image{
+        max-width: 30px;
+        max-height: 30px;
+        margin: 3px;
+    }
+    #startButton, #restartButton {
+        max-width: 100px;
+        max-height: 50px;
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+    .image {
+        max-width: 45px;
+        max-height: 45px;
+        margin: 0 3px;
+    }
+}
+@media only screen and (max-width: 768px) {
+    #numberContainer {        
+        max-width: 80%;        
+    } 
+    .choose-message, .endGame-message {
+        max-height: 35px;
+        padding: 6px 12px;
+        font-size: 0.9rem;        
+    }
+    .selected-number {
+        max-width: 35px;
+        max-height: 35px;
+        margin: 3px;
+        border: 3px solid red;
+    }
+    .number-image{
+        max-width: 30px;
+        max-height: 30px;
+        margin: 3px;
+    }
+    #startButton, #restartButton {
+        max-width: 100px;
+        max-height: 50px;
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+    .image {
+        max-width: 45px;
+        max-height: 45px;
+        margin: 0 3px;
+    }
+}
+
+
+
+
+
+

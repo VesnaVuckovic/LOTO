@@ -143,35 +143,54 @@
     }
 }
 @media only screen and (max-width: 768px) {
-    #numberContainer {        
-        max-width: 80%;        
-    } 
-    .choose-message, .endGame-message {
-        max-height: 35px;
-        padding: 6px 12px;
-        font-size: 0.9rem;        
+    .number-image {
+        width: 40px;
+        height: 40px;
     }
     .selected-number {
-        max-width: 35px;
-        max-height: 35px;
-        margin: 3px;
+        width: 70px;
+        height: 70px;
+    }
+    #startButton, #restartButton {
+        width: 150px;
+        height: 70px;
+        font-size: 1.5rem;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    #numberContainer {        
+        width: 100%;
+    } 
+    .choose-message, .endGame-message {
+        font-size: 1rem;        
+        padding: 10px;
+    }
+    .selected-number {
+        width: 50px;
+        height: 50px;
+        margin: 5px;
         border: 3px solid red;
     }
     .number-image{
-        max-width: 30px;
-        max-height: 30px;
+        width: 40px;
+        height: 40px;
         margin: 3px;
     }
     #startButton, #restartButton {
-        max-width: 100px;
-        max-height: 50px;
-        padding: 6px 12px;
-        font-size: 0.9rem;
+        width: 120px;
+        height: 60px;
+        font-size: 1rem;
     }
     .image {
-        max-width: 45px;
-        max-height: 45px;
-        margin: 0 3px;
+        width: 60px;
+        height: 60px;
+    }
+    .endGame-message {
+        top: 30%;  /* Spusti poruku niže */
+    }
+    #restartButton {
+        margin-top: 20px;  /* Podigni dugme Restart */
     }
 }
 

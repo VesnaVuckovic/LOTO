@@ -121,7 +121,7 @@ function startPrint(playersNumbers) {
 
     function endGameMessage(guessedNumbers) {        
         let message = document.createElement("div");
-        message.textContent = "You guessed " + guessedNumbers + " selected numbers.";
+        message.textContent = "You have " + guessedNumbers + " matching";
         message.classList.add("endGame-message");               
         document.body.appendChild(message);
       

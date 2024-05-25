@@ -187,10 +187,10 @@
         height: 60px;
     }
     .endGame-message {
-        top: 30%;  /* Spusti poruku niže */
+        top: 30%;  
     }
     #restartButton {
-        margin-top: 20px;  /* Podigni dugme Restart */
+        margin-top: 20px; 
     }
 }
 
